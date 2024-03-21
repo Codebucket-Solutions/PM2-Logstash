@@ -7,7 +7,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-        console.log(log.data)
+        console.log(log)
       // console.log(log.process.name, log.data);
       // Log to gelf
       var message = {
@@ -27,7 +27,7 @@ pm2.launchBus(function (err, bus) {
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
       
-        console.log(log.data)
+        console.log(log)
         // console.error(log.process.name, log.data);
       // Log to gelf
       var message = {
