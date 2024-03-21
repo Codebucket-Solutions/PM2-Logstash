@@ -7,15 +7,15 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-        console.log(log)
+      console.log(log);
       // console.log(log.process.name, log.data);
       // Log to gelf
       var message = {
-        timestamp: log.at / 1000,
-        version: log.process.version,
+        timestamp: new Date(log.at).toISOString(),
+        version: "1",
         service: "PM2",
         application: log.process.name,
-        environment: "env",
+        environment: "output",
         user: hostname,
         message: log.data,
       };
@@ -26,16 +26,15 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      
-        console.log(log)
-        // console.error(log.process.name, log.data);
+      console.log(log);
+      // console.error(log.process.name, log.data);
       // Log to gelf
       var message = {
-        timestamp: log.at / 1000,
-        version: log.process.version,
+        timestamp: new Date(log.at).toISOString(),
+        version: "1",
         service: "PM2",
         application: log.process.name,
-        environment: "env",
+        environment: "error",
         user: hostname,
         message: log.data,
       };
