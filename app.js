@@ -6,6 +6,7 @@ pm2.launchBus(function (err, bus) {
   if (err) return console.error("PM2 Loggly:", err);
 
   bus.on("log:out", function (log) {
+    console.log(log)
     if (log.process.name !== "PM2-LOGSTASH") {
       // console.log(log.process.name, log.data);
       // Log to gelf
@@ -24,7 +25,8 @@ pm2.launchBus(function (err, bus) {
   });
 
   bus.on("log:err", function (log) {
-    if (log.process.name !== "pm2-gelf") {
+    console.log(log)
+    if (log.process.name !== "PM2-LOGSTASH") {
       // console.error(log.process.name, log.data);
       // Log to gelf
       var message = {
