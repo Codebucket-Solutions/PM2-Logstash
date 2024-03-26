@@ -12,19 +12,17 @@ const hostname = os.hostname();
 const keystore = jks.toPem(fs.readFileSync("./jks/keystore.jks"), JKS_PASSWORD);
 const { cert, key } = keystore[KEYSTORE_ALIAS];
 
-const logger = winston.createLogger({
-  transports: [
-    new LogstashTransport({
-      mode:"tcp",
-      port: LOGSTASH_PORT,
-      host: LOGSTASH_HOST,
-      sslEnable: true,
-      sslKeyContent: key,
-      sslCertContent: cert,
-      formatted:false
-    }),
-  ],
-});
+const logger = winston.createLogger();
+
+logger.add(new LogstashTransport({
+  mode:"tcp",
+  port: LOGSTASH_PORT,
+  host: LOGSTASH_HOST,
+  sslEnable: true,
+  sslKeyContent: key,
+  sslCertContent: cert,
+  formatted:false
+}));
 
 logger.on("error", (error) => {
   // Make the decission in here
