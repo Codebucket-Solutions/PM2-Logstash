@@ -10,8 +10,14 @@ const logger = winston.createLogger({
     new LogstashTransport({
       port: 50000,
       host: "127.0.0.1",
+      max_connect_retries:2
     }),
   ],
+});
+
+logger.on('error', (error) => {
+  // Make the decission in here
+  console.log(error);
 });
 
 pm2.launchBus(function (err, bus) {
@@ -19,7 +25,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      console.log(log);
+      //console.log(log);
       // console.log(log.process.name, log.data);
       // Log to gelf
       var message = {
@@ -31,14 +37,14 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      logger.info(log.data,message);
+      logger.info(log.data, message);
       //gelf.emit("gelf.log", message);
     }
   });
 
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      console.log(log);
+      //console.log(log);
       // console.error(log.process.name, log.data);
       // Log to gelf
       var message = {
@@ -50,7 +56,7 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      logger.error(log.data,message);
+      logger.error(log.data, message);
     }
   });
 
