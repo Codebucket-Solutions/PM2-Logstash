@@ -1,0 +1,24 @@
+diff --git a/node_modules/winston3-logstash-transport/index.js b/node_modules/winston3-logstash-transport/index.js
+index 0668b06..1833bda 100644
+--- a/node_modules/winston3-logstash-transport/index.js
++++ b/node_modules/winston3-logstash-transport/index.js
+@@ -24,6 +24,8 @@ class LogstashTransport extends Transport {
+       sslEnable: false,
+       sslKey: '',
+       sslCert: '',
++      sslKeyContent:'',
++      sslCertContent:'',
+       sslCA: '',
+       sslPassPhrase: '',
+       rejectUnauthorized: false,
+@@ -169,6 +171,10 @@ class LogstashTransport extends Transport {
+     if (this.sslEnable) {
+       options.key = this.sslKey ? fs.readFileSync(this.sslKey) : null;
+       options.cert = this.sslCert ? fs.readFileSync(this.sslCert) : null;
++      if(this.sslCertContent)
++        options.cert = this.sslCertContent
++      if(this.sslKeyContent)
++        options.key = this.sslKeyContent
+       options.passphrase = this.sslPassPhrase || null;
+       options.rejectUnauthorized = (this.rejectUnauthorized === true);
+ 

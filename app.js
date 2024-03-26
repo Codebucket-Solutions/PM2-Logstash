@@ -18,9 +18,9 @@ const logger = winston.createLogger({
       mode:"tcp",
       port: LOGSTASH_PORT,
       host: LOGSTASH_HOST,
-      // ssl_enable: true,
-      // ssl_key: key,
-      // ssl_cert: cert,
+      sslEnable: true,
+      sslKeyContent: key,
+      sslCertContent: cert,
       formatted:false
     }),
   ],
