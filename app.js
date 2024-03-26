@@ -6,10 +6,10 @@ const fs = require("fs");
 const winston = require("winston");
 const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest");
 
-const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT } = process.env;
+const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT,KEYSTORE_ALIAS } = process.env;
 const hostname = os.hostname();
 const keystore = jks.toPem(fs.readFileSync("./jks/keystore.jks"), JKS_PASSWORD);
-const { cert, key } = keystore["alias"];
+const { cert, key } = keystore[KEYSTORE_ALIAS];
 
 const logger = winston.createLogger({
   transports: [
