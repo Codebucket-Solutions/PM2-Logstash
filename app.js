@@ -8,7 +8,7 @@ const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest"
 const logger = winston.createLogger({
   transports: [
     new LogstashTransport({
-      port: 50000,
+      port: 50001,
       host: "127.0.0.1",
       max_connect_retries:2
     }),
