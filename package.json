@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pm2": "^5.3.1"
+    "pm2": "^5.3.1",
+    "winston": "^3.13.0",
+    "winston-logstash": "^1.2.1"
   }
 }

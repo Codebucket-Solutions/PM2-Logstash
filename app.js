@@ -2,6 +2,18 @@ const pm2 = require("pm2");
 const os = require("os");
 const hostname = os.hostname();
 
+const winston = require("winston");
+const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest");
+
+const logger = winston.createLogger({
+  transports: [
+    new LogstashTransport({
+      port: 50000,
+      host: "127.0.0.1",
+    }),
+  ],
+});
+
 pm2.launchBus(function (err, bus) {
   if (err) return console.error("PM2 Loggly:", err);
 
@@ -19,7 +31,7 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      console.log(message);
+      logger.info(log.data,message);
       //gelf.emit("gelf.log", message);
     }
   });
@@ -38,7 +50,7 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      console.log(message);
+      logger.error(log.data,message);
     }
   });
 
