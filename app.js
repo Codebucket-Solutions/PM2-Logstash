@@ -43,6 +43,7 @@ pm2.launchBus(function (err, bus) {
         service: "PM2",
         application: log.process.name,
         environment: "output",
+        level:"info",
         user: hostname,
         message: log.data,
       };
@@ -58,6 +59,7 @@ pm2.launchBus(function (err, bus) {
         service: "PM2",
         application: log.process.name,
         environment: "error",
+        level:"error",
         user: hostname,
         message: log.data,
       };
