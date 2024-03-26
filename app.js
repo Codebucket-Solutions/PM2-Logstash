@@ -15,6 +15,7 @@ const { cert, key } = keystore[KEYSTORE_ALIAS];
 const logger = winston.createLogger({
   transports: [
     new LogstashTransport({
+      mode:"tcp",
       port: LOGSTASH_PORT,
       host: LOGSTASH_HOST,
       // ssl_enable: true,
