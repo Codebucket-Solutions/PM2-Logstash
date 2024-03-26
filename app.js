@@ -1,22 +1,15 @@
-require('dotenv').config()
+require("dotenv").config();
 const pm2 = require("pm2");
 const os = require("os");
-const jks = require('jks-js');
+const jks = require("jks-js");
 const fs = require("fs");
 const winston = require("winston");
 const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest");
 
-const {JKS_PASSWORD,LOGSTASH_HOST,LOGSTASH_PORT} = process.env
+const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT } = process.env;
 const hostname = os.hostname();
-const keystore = jks.toPem(
-	fs.readFileSync('./jks/keystore.jks'),
-	JKS_PASSWORD
-);
-
-jks.parseJks()
-
-const { cert, key } = keystore['alias'];
-
+const keystore = jks.toPem(fs.readFileSync("./jks/keystore.jks"), JKS_PASSWORD);
+const { cert, key } = keystore["alias"];
 
 const logger = winston.createLogger({
   transports: [
