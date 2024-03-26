@@ -4,9 +4,10 @@ const os = require("os");
 const jks = require("jks-js");
 const fs = require("fs");
 const winston = require("winston");
-const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest");
+const LogstashTransport = require('winston3-logstash-transport');
 
-const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT,KEYSTORE_ALIAS } = process.env;
+const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT, KEYSTORE_ALIAS } =
+  process.env;
 const hostname = os.hostname();
 const keystore = jks.toPem(fs.readFileSync("./jks/keystore.jks"), JKS_PASSWORD);
 const { cert, key } = keystore[KEYSTORE_ALIAS];
@@ -16,9 +17,10 @@ const logger = winston.createLogger({
     new LogstashTransport({
       port: LOGSTASH_PORT,
       host: LOGSTASH_HOST,
-      ssl_enable: true,
-      ssl_key: key,
-      ssl_cert: cert,
+      // ssl_enable: true,
+      // ssl_key: key,
+      // ssl_cert: cert,
+      formatted:false
     }),
   ],
 });
@@ -45,7 +47,7 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      logger.info(log.data, message);
+      logger.info(message);
       //gelf.emit("gelf.log", message);
     }
   });
@@ -64,7 +66,7 @@ pm2.launchBus(function (err, bus) {
         user: hostname,
         message: log.data,
       };
-      logger.error(log.data, message);
+      logger.error( message);
     }
   });
 
