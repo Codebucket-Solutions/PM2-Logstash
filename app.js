@@ -4,6 +4,7 @@ const os = require("os");
 const jks = require("jks-js");
 const fs = require("fs");
 const winston = require("winston");
+const stripAnsi = require("strip-ansi");
 const LogstashTransport = require("winston3-logstash-transport");
 
 const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT, KEYSTORE_ALIAS } =
@@ -37,7 +38,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      log.data = log.data.replaceAll('[0m', '').trim()
+      log.data = stripAnsi(log.data)
       if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
         var message = {
           timestamp: new Date(log.at).toISOString(),
@@ -56,7 +57,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      log.data = log.data.replaceAll('[0m', '').trim()
+      log.data = stripAnsi(log.data)
       if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
         var message = {
           timestamp: new Date(log.at).toISOString(),
