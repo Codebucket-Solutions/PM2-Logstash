@@ -39,7 +39,7 @@ pm2.launchBus(function (err, bus) {
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
       log.data = stripAnsi(log.data);
-      let errorFlag = log.data.toUpperCase().indexOf("ERROR") == -1;
+      let errorFlag = log.data.toUpperCase().indexOf("ERROR") != -1;
       if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
         var message = {
           timestamp: new Date(log.at).toISOString(),
