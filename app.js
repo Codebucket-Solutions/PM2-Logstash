@@ -37,33 +37,37 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      var message = {
-        timestamp: new Date(log.at).toISOString(),
-        version: "1",
-        service: "PM2",
-        application: log.process.name,
-        environment: "output",
-        level:"info",
-        user: hostname,
-        message: log.data,
-      };
-      logger.info(message);
+      if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
+        var message = {
+          timestamp: new Date(log.at).toISOString(),
+          version: "1",
+          service: "PM2",
+          application: log.process.name,
+          environment: "output",
+          level: "info",
+          user: hostname,
+          message: log.data,
+        };
+        logger.info(message);
+      }
     }
   });
 
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
-      var message = {
-        timestamp: new Date(log.at).toISOString(),
-        version: "1",
-        service: "PM2",
-        application: log.process.name,
-        environment: "error",
-        level:"error",
-        user: hostname,
-        message: log.data,
-      };
-      logger.error(message);
+      if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
+        var message = {
+          timestamp: new Date(log.at).toISOString(),
+          version: "1",
+          service: "PM2",
+          application: log.process.name,
+          environment: "error",
+          level: "error",
+          user: hostname,
+          message: log.data,
+        };
+        logger.error(message);
+      }
     }
   });
 
