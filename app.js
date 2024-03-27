@@ -4,7 +4,7 @@ const os = require("os");
 const jks = require("jks-js");
 const fs = require("fs");
 const winston = require("winston");
-const stripAnsi = require("fix-esm").require("strip-ansi");
+const stripAnsi = require("fix-esm").require("strip-ansi").default;
 const LogstashTransport = require("winston3-logstash-transport");
 
 const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT, KEYSTORE_ALIAS } =
