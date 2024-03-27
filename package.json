@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "fix-esm": "^1.0.1",
     "jks-js": "^1.1.1",
     "pm2": "^5.3.1",
     "strip-ansi": "^7.1.0",
