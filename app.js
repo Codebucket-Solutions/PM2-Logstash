@@ -37,6 +37,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:out", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
+      log.data = log.data.replace('[0m', '')
       if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
         var message = {
           timestamp: new Date(log.at).toISOString(),
@@ -55,6 +56,7 @@ pm2.launchBus(function (err, bus) {
 
   bus.on("log:err", function (log) {
     if (log.process.name !== "PM2-LOGSTASH") {
+      log.data = log.data.replace('[0m', '')
       if (!(log.data.startsWith("/") || log.data.startsWith("GET"))) {
         var message = {
           timestamp: new Date(log.at).toISOString(),
