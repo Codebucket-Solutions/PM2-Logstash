@@ -1,10 +1,10 @@
 {
   "devDependencies": {
-    "@types/node": "^20.11.30",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "@types/node": "^20.11.30",
     "dotenv": "^16.4.5",
     "pm2": "^5.3.1",
     "strip-ansi": "^7.1.0",
