@@ -4,6 +4,7 @@
     "outDir": "dist",
     "module": "ESNext",
     "allowJs": true,
+    "types": ["node"],
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
