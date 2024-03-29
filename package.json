@@ -17,6 +17,6 @@
     "pm2": "^5.3.1",
     "strip-ansi": "^7.1.0",
     "winston": "^3.13.0",
-    "winston3-logstash-transport": "^1.2.3"
+    "winston-logstash": "github:gotham13/winston-logstash"
   }
 }

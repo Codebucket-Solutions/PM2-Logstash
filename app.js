@@ -5,7 +5,7 @@ const jks = require("jks-js");
 const fs = require("fs");
 const winston = require("winston");
 const stripAnsi = require("fix-esm").require("strip-ansi").default;
-const LogstashTransport = require("winston3-logstash-transport");
+const LogstashTransport = require("winston-logstash/lib/winston-logstash-latest");
 
 const { JKS_PASSWORD, LOGSTASH_HOST, LOGSTASH_PORT, KEYSTORE_ALIAS } =
   process.env;
@@ -17,14 +17,13 @@ const logger = winston.createLogger();
 
 logger.add(
   new LogstashTransport({
-    mode: "tcp",
     port: LOGSTASH_PORT,
     host: LOGSTASH_HOST,
-    sslEnable: true,
-    sslKeyContent: key,
-    sslCertContent: cert,
-    formatted: false,
-    trailingLineFeed: true,
+    ssl_enable: true,
+    ssl_key_content: key,
+    ssl_cert_content: cert,
+    // formatted: false,
+    // trailingLineFeed: true,
   })
 );
 
@@ -46,8 +45,8 @@ pm2.launchBus(function (err, bus) {
           version: "1",
           service: "PM2",
           application: log.process.name,
-          environment: errorFlag?"error":"output",
-          level: errorFlag?"error":"info",
+          environment: errorFlag ? "error" : "output",
+          level: errorFlag ? "error" : "info",
           user: hostname,
           message: log.data,
         };
