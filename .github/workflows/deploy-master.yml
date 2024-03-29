@@ -34,7 +34,7 @@ jobs:
             git checkout master
             git pull origin master
             nvm use
-            npm install
+            npm --production=false install
 
             CHECKPROCESS=$(pm2 pid $PROCESS_NAME)
             if [ "${#CHECKPROCESS}" -gt 0 ]; then
