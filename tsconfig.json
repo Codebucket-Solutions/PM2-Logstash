@@ -2,9 +2,9 @@
   "compilerOptions": {
     "target": "es2018",
     "outDir": "dist",
-    "module": "NodeNext",
+    "module": "ESNext",
     "allowJs": true,
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true
