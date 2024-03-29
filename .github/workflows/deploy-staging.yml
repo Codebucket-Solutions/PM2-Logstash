@@ -40,6 +40,6 @@ jobs:
             if [ "${#CHECKPROCESS}" -gt 0 ]; then
               pm2 restart $PROCESS_NAME
             else
-              pm2 start npm --name $PROCESS_NAME -- run "start:dev"
+              pm2 start npm --name $PROCESS_NAME -- run "start"
             fi
             pm2 save
