@@ -1,0 +1,1 @@
+declare module 'winston-logstash/lib/winston-logstash-latest.js';
