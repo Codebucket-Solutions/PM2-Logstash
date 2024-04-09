@@ -42,6 +42,10 @@ else {
   );
 }
 
+logger.on("warn", (error) => {
+  console.log(error);
+});
+
 logger.on("error", (error) => {
   console.log(error);
 });
@@ -61,7 +65,7 @@ pm2.launchBus(function (err, bus) {
   if (err) return console.error(err);
 
   bus.on("log:out", function (log: logType) {
-    if (log.process.name !== "PM2-LOGSTASH") {
+    if (!["PM2-LOGSTASH", "LOGSTASH-SERVER"].includes(log.process.name)) {
       log.data = stripAnsi(log.data); // Removing Ansi Color Codes
       //Some times errors are logged in normal output
       let errorFlag = log.data.toUpperCase().indexOf("ERROR") != -1;
@@ -83,7 +87,7 @@ pm2.launchBus(function (err, bus) {
   });
 
   bus.on("log:err", function (log: logType) {
-    if (log.process.name !== "PM2-LOGSTASH") {
+    if (!["PM2-LOGSTASH", "LOGSTASH-SERVER"].includes(log.process.name)) {
       log.data = stripAnsi(log.data); // Removing Ansi Color Codes
       var message = {
         timestamp: new Date(log.at).toISOString(),
