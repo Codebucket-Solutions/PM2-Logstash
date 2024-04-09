@@ -25,10 +25,10 @@ else {
     }));
 }
 logger.on("warn", (error) => {
-    console.log(error);
+    console.log("Winston Failed To Send Logs: " + error);
 });
 logger.on("error", (error) => {
-    console.log(error);
+    console.log("Winston Failed To Send Logs: " + error);
 });
 pm2.launchBus(function (err, bus) {
     if (err)
