@@ -9,6 +9,7 @@
     "pm2": "^5.3.1",
     "strip-ansi": "^7.1.0",
     "winston": "^3.13.0",
+    "winston-logserver-transport": "github:Codebucket-Solutions/Winston-Logstash-Batch-Server-Transport",
     "winston-logstash": "^1.2.1"
   },
   "name": "pm2-logstash-typescript",
